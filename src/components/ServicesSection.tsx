@@ -1,13 +1,12 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { Palette, Code, Layers, Sparkles } from "lucide-react";
+import { Flame, Shield, Users, Trophy } from "lucide-react";
 
 const services = [
-  { icon: Palette, title: "Brand Identity", desc: "Visual systems that resonate with your audience and stand the test of time." },
-  { icon: Code, title: "Web Development", desc: "High-performance web applications built with cutting-edge technology." },
-  { icon: Layers, title: "UI/UX Design", desc: "Intuitive interfaces that delight users and drive engagement." },
-  { icon: Sparkles, title: "Motion Design", desc: "Cinematic animations that bring your digital presence to life." },
+  { icon: Flame, title: "Kata Training", desc: "Perfect your form through precise, powerful kata sequences passed down through generations." },
+  { icon: Shield, title: "Kumite Sparring", desc: "Develop timing, reflexes, and tactical awareness in controlled combat sessions." },
+  { icon: Users, title: "Youth Programs", desc: "Build discipline, confidence, and respect in young martial artists ages 5–15." },
+  { icon: Trophy, title: "Competition Prep", desc: "Elite training for tournament fighters seeking regional and national titles." },
 ];
 
 function ServiceCard({ icon: Icon, title, desc, index }: { icon: any; title: string; desc: string; index: number }) {
@@ -36,7 +35,7 @@ export default function ServicesSection() {
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="section-padding" ref={ref}>
+    <section id="services" className="section-padding" ref={ref}>
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -44,9 +43,9 @@ export default function ServicesSection() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <p className="text-sm uppercase tracking-[0.3em] text-primary mb-3 font-body">What We Do</p>
+          <p className="text-sm uppercase tracking-[0.3em] text-primary mb-3 font-body">Training Programs</p>
           <h2 className="font-display font-bold text-4xl md:text-5xl">
-            Our <span className="glow-text">Services</span>
+            Our <span className="glow-text">Disciplines</span>
           </h2>
         </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

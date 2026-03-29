@@ -6,51 +6,51 @@
 
 @layer base {
   :root {
-    --background: 240 6% 6%;
+    --background: 0 0% 5%;
     --foreground: 0 0% 95%;
 
-    --card: 240 6% 10%;
+    --card: 0 0% 9%;
     --card-foreground: 0 0% 95%;
 
-    --popover: 240 6% 10%;
+    --popover: 0 0% 9%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 270 80% 65%;
+    --primary: 0 85% 50%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 240 6% 14%;
+    --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 90%;
 
-    --muted: 240 5% 18%;
-    --muted-foreground: 240 5% 55%;
+    --muted: 0 0% 16%;
+    --muted-foreground: 0 0% 55%;
 
-    --accent: 220 90% 60%;
+    --accent: 38 90% 55%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 240 5% 18%;
-    --input: 240 5% 18%;
-    --ring: 270 80% 65%;
+    --border: 0 0% 16%;
+    --input: 0 0% 16%;
+    --ring: 0 85% 50%;
 
     --radius: 0.75rem;
 
     /* Custom tokens */
-    --glow-purple: 270 80% 65%;
-    --glow-blue: 220 90% 60%;
-    --glow-pink: 330 80% 65%;
-    --glass-bg: 240 6% 12%;
-    --glass-border: 240 5% 22%;
+    --glow-red: 0 85% 50%;
+    --glow-gold: 38 90% 55%;
+    --glow-crimson: 350 80% 45%;
+    --glass-bg: 0 0% 10%;
+    --glass-border: 0 0% 20%;
 
     --font-display: 'Syne', sans-serif;
     --font-body: 'Space Grotesk', sans-serif;
 
-    --gradient-primary: linear-gradient(135deg, hsl(270 80% 65%), hsl(220 90% 60%));
-    --gradient-accent: linear-gradient(135deg, hsl(270 80% 65%), hsl(330 80% 65%));
-    --gradient-glow: radial-gradient(ellipse at center, hsl(270 80% 65% / 0.15), transparent 70%);
-    --shadow-glow: 0 0 40px hsl(270 80% 65% / 0.3);
-    --shadow-glow-sm: 0 0 20px hsl(270 80% 65% / 0.2);
+    --gradient-primary: linear-gradient(135deg, hsl(0 85% 50%), hsl(38 90% 55%));
+    --gradient-accent: linear-gradient(135deg, hsl(0 85% 50%), hsl(350 80% 45%));
+    --gradient-glow: radial-gradient(ellipse at center, hsl(0 85% 50% / 0.12), transparent 70%);
+    --shadow-glow: 0 0 40px hsl(0 85% 50% / 0.3);
+    --shadow-glow-sm: 0 0 20px hsl(0 85% 50% / 0.2);
   }
 }
 
@@ -90,7 +90,7 @@
   }
 
   .glow-border {
-    border: 1px solid hsl(var(--glow-purple) / 0.3);
+    border: 1px solid hsl(var(--glow-red) / 0.3);
     box-shadow: var(--shadow-glow-sm);
   }
 
@@ -102,7 +102,7 @@
   }
 
   .glow-button:hover {
-    box-shadow: 0 0 60px hsl(270 80% 65% / 0.5);
+    box-shadow: 0 0 60px hsl(0 85% 50% / 0.5);
     transform: translateY(-2px);
   }
 

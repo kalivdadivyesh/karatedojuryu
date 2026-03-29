@@ -27,7 +27,7 @@ function FloatingParticles() {
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" args={[positions, 3]} />
       </bufferGeometry>
-      <pointsMaterial size={0.03} color="#a855f7" transparent opacity={0.7} sizeAttenuation />
+      <pointsMaterial size={0.03} color="#dc2626" transparent opacity={0.6} sizeAttenuation />
     </points>
   );
 }
@@ -43,13 +43,13 @@ function GlowingSphere() {
 
   return (
     <mesh ref={ref}>
-      <sphereGeometry args={[1.2, 32, 32]} />
-      <meshStandardMaterial color="#7c3aed" emissive="#7c3aed" emissiveIntensity={0.4} transparent opacity={0.15} wireframe />
+      <icosahedronGeometry args={[1.2, 1]} />
+      <meshStandardMaterial color="#dc2626" emissive="#dc2626" emissiveIntensity={0.3} transparent opacity={0.12} wireframe />
     </mesh>
   );
 }
 
-function FloatingTorus() {
+function FloatingOctahedron() {
   const ref = useRef<THREE.Mesh>(null);
 
   useFrame(({ clock }) => {
@@ -61,8 +61,8 @@ function FloatingTorus() {
 
   return (
     <mesh ref={ref} position={[2.5, 0, -2]}>
-      <torusGeometry args={[0.8, 0.15, 16, 48]} />
-      <meshStandardMaterial color="#3b82f6" emissive="#3b82f6" emissiveIntensity={0.3} transparent opacity={0.3} wireframe />
+      <octahedronGeometry args={[0.8, 0]} />
+      <meshStandardMaterial color="#d97706" emissive="#d97706" emissiveIntensity={0.3} transparent opacity={0.25} wireframe />
     </mesh>
   );
 }
@@ -72,11 +72,11 @@ export default function HeroCanvas() {
     <div className="absolute inset-0 z-0">
       <Canvas camera={{ position: [0, 0, 5], fov: 60 }} dpr={[1, 1.5]}>
         <ambientLight intensity={0.2} />
-        <pointLight position={[5, 5, 5]} intensity={0.5} color="#a855f7" />
-        <pointLight position={[-5, -3, 3]} intensity={0.3} color="#3b82f6" />
+        <pointLight position={[5, 5, 5]} intensity={0.5} color="#dc2626" />
+        <pointLight position={[-5, -3, 3]} intensity={0.3} color="#d97706" />
         <FloatingParticles />
         <GlowingSphere />
-        <FloatingTorus />
+        <FloatingOctahedron />
       </Canvas>
     </div>
   );

@@ -2,10 +2,10 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const stats = [
-  { value: "150+", label: "Projects" },
-  { value: "12", label: "Awards" },
-  { value: "8+", label: "Years" },
-  { value: "40+", label: "Clients" },
+  { value: "2000+", label: "Students Trained" },
+  { value: "25+", label: "Tournament Wins" },
+  { value: "18", label: "Years Teaching" },
+  { value: "6", label: "Black Belt Instructors" },
 ];
 
 export default function AboutSection() {
@@ -20,15 +20,15 @@ export default function AboutSection() {
           animate={inView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <p className="text-sm uppercase tracking-[0.3em] text-primary mb-3 font-body">About Us</p>
+          <p className="text-sm uppercase tracking-[0.3em] text-primary mb-3 font-body">Our Dojo</p>
           <h2 className="font-display font-bold text-4xl md:text-5xl mb-6">
-            Built for the <span className="glow-text">bold</span>
+            Forged in <span className="glow-text">discipline</span>
           </h2>
           <p className="text-muted-foreground leading-relaxed mb-4 font-body">
-            We are a collective of designers, developers, and dreamers who believe digital experiences should feel alive. Every pixel, every transition, every interaction is crafted with intention.
+            Our dojo is more than a training ground — it's a community built on respect, perseverance, and the relentless pursuit of excellence. Every student, from white belt to black belt, is part of a legacy.
           </p>
           <p className="text-muted-foreground leading-relaxed font-body">
-            From startups to global brands, we partner with visionaries who refuse to settle for ordinary.
+            Founded by Sensei Takeshi Yamamoto, 5th Dan, our programs blend traditional Shotokan karate with modern sports science for complete martial arts development.
           </p>
         </motion.div>
 

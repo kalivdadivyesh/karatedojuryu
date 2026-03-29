@@ -1,15 +1,15 @@
 import { motion } from "framer-motion";
 
-const socials = ["Twitter", "Dribbble", "GitHub", "LinkedIn"];
-const footerLinks = ["Privacy", "Terms", "Careers"];
+const socials = ["Instagram", "YouTube", "Facebook", "TikTok"];
+const footerLinks = ["Privacy", "Terms", "Schedule"];
 
 export default function Footer() {
   return (
     <footer id="contact" className="border-t border-border/30 px-6 md:px-12 lg:px-24 py-16">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         <div>
-          <span className="font-display font-bold text-xl glow-text">NEXUS</span>
-          <p className="text-muted-foreground text-sm mt-2 font-body">© 2026 Nexus Agency. All rights reserved.</p>
+          <span className="font-display font-bold text-xl glow-text tracking-widest">武道 BUSHIDO</span>
+          <p className="text-muted-foreground text-sm mt-2 font-body">© 2026 Bushido Karate Dojo. All rights reserved.</p>
         </div>
 
         <div className="flex items-center gap-6">

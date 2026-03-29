@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
-const links = ["Home", "Work", "About", "Contact"];
+const links = ["Home", "Programs", "About", "Contact"];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -13,7 +13,8 @@ export default function Navbar() {
   }, []);
 
   const scrollTo = (id: string) => {
-    const el = document.getElementById(id.toLowerCase());
+    const map: Record<string, string> = { home: "home", programs: "services", about: "about", contact: "contact" };
+    const el = document.getElementById(map[id.toLowerCase()] || id.toLowerCase());
     el?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -27,8 +28,8 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-12 py-4">
-        <span className="font-display font-bold text-xl glow-text cursor-pointer" onClick={() => scrollTo("home")}>
-          NEXUS
+        <span className="font-display font-bold text-xl glow-text cursor-pointer tracking-widest" onClick={() => scrollTo("home")}>
+          武道 BUSHIDO
         </span>
         <div className="hidden md:flex items-center gap-8">
           {links.map((link) => (
@@ -42,7 +43,7 @@ export default function Navbar() {
             </button>
           ))}
         </div>
-        <button className="glow-button text-sm !px-5 !py-2">Get in Touch</button>
+        <button className="glow-button text-sm !px-5 !py-2">Join a Class</button>
       </div>
     </motion.nav>
   );
