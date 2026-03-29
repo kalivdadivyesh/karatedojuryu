@@ -16,7 +16,7 @@ export default function HeroSection() {
           transition={{ delay: 0.3 }}
           className="text-sm uppercase tracking-[0.3em] text-muted-foreground mb-6 font-body"
         >
-          Creative Digital Agency
+          Discipline · Strength · Honor
         </motion.p>
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
@@ -24,10 +24,10 @@ export default function HeroSection() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="font-display font-extrabold text-5xl md:text-7xl lg:text-8xl leading-[0.95] mb-6"
         >
-          We craft{" "}
-          <span className="glow-text">digital</span>
+          Master the{" "}
+          <span className="glow-text">art</span>
           <br />
-          experiences
+          of karate
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
@@ -35,14 +35,14 @@ export default function HeroSection() {
           transition={{ delay: 0.7 }}
           className="text-muted-foreground text-lg md:text-xl max-w-xl mx-auto mb-10 font-body"
         >
-          Merging design, technology, and motion to build unforgettable brands and products.
+          Train your body and mind. Build unshakable confidence through the ancient discipline of martial arts.
         </motion.p>
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.9 }}
         >
-          <button className="glow-button text-base">Explore Our Work</button>
+          <button className="glow-button text-base">Begin Your Journey</button>
         </motion.div>
       </div>
 
