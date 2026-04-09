@@ -2,9 +2,7 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useRef, useMemo, useState, useEffect } from "react";
 import * as THREE from "three";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
-import KatanaBlade from "./katana/KatanaBlade";
-import KatanaSaya from "./katana/KatanaSaya";
-import KatanaHandle from "./katana/KatanaHandle";
+import { useTexture } from "@react-three/drei";
 
 /* ─── Shared scroll state (avoids React re-renders in useFrame) ─── */
 const scrollState = {
