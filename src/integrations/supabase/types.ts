@@ -14,7 +14,126 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      attendance: {
+        Row: {
+          attended_dates: Json
+          created_at: string
+          id: string
+          upcoming_classes: Json
+          updated_at: string
+          user_hex_id: string
+        }
+        Insert: {
+          attended_dates?: Json
+          created_at?: string
+          id?: string
+          upcoming_classes?: Json
+          updated_at?: string
+          user_hex_id: string
+        }
+        Update: {
+          attended_dates?: Json
+          created_at?: string
+          id?: string
+          upcoming_classes?: Json
+          updated_at?: string
+          user_hex_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_user_hex_id_fkey"
+            columns: ["user_hex_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["hex_id"]
+          },
+        ]
+      }
+      progress: {
+        Row: {
+          belt_level: string
+          created_at: string
+          id: string
+          updated_at: string
+          user_hex_id: string
+        }
+        Insert: {
+          belt_level?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_hex_id: string
+        }
+        Update: {
+          belt_level?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+          user_hex_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "progress_user_hex_id_fkey"
+            columns: ["user_hex_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["hex_id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_roles_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
+        Row: {
+          age: number
+          created_at: string
+          hex_id: string
+          id: string
+          name: string
+          password_hash: string
+        }
+        Insert: {
+          age: number
+          created_at?: string
+          hex_id: string
+          id?: string
+          name: string
+          password_hash: string
+        }
+        Update: {
+          age?: number
+          created_at?: string
+          hex_id?: string
+          id?: string
+          name?: string
+          password_hash?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +142,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +269,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
