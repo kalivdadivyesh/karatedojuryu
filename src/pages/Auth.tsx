@@ -29,6 +29,11 @@ export default function Auth() {
       return;
     }
 
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters");
+      return;
+    }
+
     setLoading(true);
     try {
       const fnName = isSignup ? "signup" : "login";
@@ -52,7 +57,9 @@ export default function Auth() {
         return;
       }
 
-      login(data.user);
+      if (data?.session) {
+        login(data.user, data.session);
+      }
       navigate("/dashboard");
     } catch (err: any) {
       setError(err.message || "Something went wrong");

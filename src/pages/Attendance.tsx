@@ -7,7 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 export default function Attendance() {
   const { user, isLoading } = useAuth();
   const navigate = useNavigate();
-  const [attendance, setAttendance] = useState<any>(null);
+  const [records, setRecords] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -16,14 +16,15 @@ export default function Attendance() {
     if (!user) return;
 
     const fetchAttendance = async () => {
+      // Fetch from new attendance_records table
       const { data, error } = await supabase
-        .from("attendance")
+        .from("attendance_records")
         .select("*")
-        .eq("user_hex_id", user.hex_id)
-        .maybeSingle();
+        .eq("user_id", user.id)
+        .order("date", { ascending: false });
 
       if (error) setError(error.message);
-      else setAttendance(data);
+      else setRecords(data || []);
       setLoading(false);
     };
 
@@ -31,6 +32,9 @@ export default function Attendance() {
   }, [user, isLoading, navigate]);
 
   if (isLoading || !user) return null;
+
+  const presentCount = records.filter(r => r.status === 'present').length;
+  const totalCount = records.length;
 
   return (
     <div className="min-h-screen bg-background px-4 py-12">
@@ -58,42 +62,50 @@ export default function Attendance() {
           <p className="text-destructive font-body">{error}</p>
         ) : (
           <div className="space-y-6">
+            {/* Summary */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className="glass-card p-6"
             >
-              <h2 className="font-display text-lg font-semibold text-foreground mb-4">Attended Dates</h2>
-              {attendance?.attended_dates?.length > 0 ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {(attendance.attended_dates as string[]).map((date: string, i: number) => (
-                    <div key={i} className="bg-secondary/50 rounded-lg px-3 py-2 text-sm text-foreground font-body text-center">
-                      {date}
-                    </div>
-                  ))}
+              <h2 className="font-display text-lg font-semibold text-foreground mb-2">Summary</h2>
+              <div className="flex gap-8">
+                <div>
+                  <p className="text-2xl font-bold text-primary">{presentCount}</p>
+                  <p className="text-xs text-muted-foreground font-body">Classes Attended</p>
                 </div>
-              ) : (
-                <p className="text-muted-foreground text-sm font-body">No attendance records yet</p>
-              )}
+                <div>
+                  <p className="text-2xl font-bold text-foreground">{totalCount}</p>
+                  <p className="text-xs text-muted-foreground font-body">Total Records</p>
+                </div>
+              </div>
             </motion.div>
 
+            {/* Records */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="glass-card p-6"
             >
-              <h2 className="font-display text-lg font-semibold text-foreground mb-4">Upcoming Classes</h2>
-              {attendance?.upcoming_classes?.length > 0 ? (
+              <h2 className="font-display text-lg font-semibold text-foreground mb-4">Attendance History</h2>
+              {records.length > 0 ? (
                 <div className="space-y-2">
-                  {(attendance.upcoming_classes as any[]).map((cls: any, i: number) => (
-                    <div key={i} className="bg-secondary/50 rounded-lg px-4 py-3 text-sm text-foreground font-body">
-                      {typeof cls === "string" ? cls : JSON.stringify(cls)}
+                  {records.map((record) => (
+                    <div key={record.id} className="flex items-center justify-between bg-secondary/50 rounded-lg px-4 py-3">
+                      <span className="text-sm text-foreground font-body">{record.date}</span>
+                      <span className={`text-xs font-semibold px-2 py-1 rounded ${
+                        record.status === 'present' 
+                          ? 'bg-green-500/20 text-green-400' 
+                          : 'bg-red-500/20 text-red-400'
+                      }`}>
+                        {record.status === 'present' ? '✅ Present' : '❌ Absent'}
+                      </span>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p className="text-muted-foreground text-sm font-body">No upcoming classes scheduled</p>
+                <p className="text-muted-foreground text-sm font-body">No attendance records yet. Your admin will mark your attendance.</p>
               )}
             </motion.div>
           </div>
