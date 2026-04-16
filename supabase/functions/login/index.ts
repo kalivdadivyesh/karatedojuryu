@@ -6,14 +6,6 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-async function hashPassword(password: string): Promise<string> {
-  const encoder = new TextEncoder();
-  const data = encoder.encode(password);
-  const hash = await crypto.subtle.digest('SHA-256', data);
-  const hashArray = Array.from(new Uint8Array(hash));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders });
@@ -33,7 +25,8 @@ serve(async (req) => {
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
     );
 
-    const { data: user, error } = await supabase
+    // Find user by name
+    const { data: user } = await supabase
       .from('users')
       .select('*')
       .eq('name', name)
@@ -45,9 +38,14 @@ serve(async (req) => {
       });
     }
 
-    const password_hash = await hashPassword(password);
+    // Sign in via Supabase Auth
+    const fakeEmail = `${name.toLowerCase().replace(/[^a-z0-9]/g, '')}@karate.local`;
+    const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
+      email: fakeEmail,
+      password: password,
+    });
 
-    if (user.password_hash !== password_hash) {
+    if (signInError) {
       return new Response(JSON.stringify({ error: 'Invalid name or password' }), {
         status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
@@ -66,8 +64,10 @@ serve(async (req) => {
         hex_id: user.hex_id,
         name: user.name,
         age: user.age,
-        role: roleData?.role || 'user'
-      }
+        belt_level: user.belt_level,
+        role: roleData?.role || 'user',
+      },
+      session: signInData.session,
     }), {
       status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
