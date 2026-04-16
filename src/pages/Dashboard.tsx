@@ -13,6 +13,11 @@ export default function Dashboard() {
 
   if (isLoading || !user) return null;
 
+  const handleLogout = async () => {
+    await logout();
+    navigate("/auth");
+  };
+
   return (
     <div className="min-h-screen bg-background px-4 py-12">
       <div className="max-w-2xl mx-auto">
@@ -62,7 +67,7 @@ export default function Dashboard() {
           className="mt-10 text-center"
         >
           <button
-            onClick={() => { logout(); navigate("/auth"); }}
+            onClick={handleLogout}
             className="text-sm text-muted-foreground hover:text-destructive transition-colors font-body"
           >
             Logout

@@ -24,10 +24,11 @@ export default function Progress() {
     if (!user) return;
 
     const fetchProgress = async () => {
+      // Fetch belt_level from users table directly
       const { data, error } = await supabase
-        .from("progress")
-        .select("*")
-        .eq("user_hex_id", user.hex_id)
+        .from("users")
+        .select("belt_level")
+        .eq("id", user.id)
         .maybeSingle();
 
       if (error) setError(error.message);
