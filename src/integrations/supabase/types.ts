@@ -81,6 +81,39 @@ export type Database = {
           },
         ]
       }
+      belts: {
+        Row: {
+          color_class: string
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          rank: number
+          text_color: string
+          updated_at: string
+        }
+        Insert: {
+          color_class: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          rank: number
+          text_color: string
+          updated_at?: string
+        }
+        Update: {
+          color_class?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          rank?: number
+          text_color?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       progress: {
         Row: {
           belt_level: string
@@ -290,20 +323,20 @@ export type Enums<
     : never
 
 export type CompositeTypes<
-  PublicCompositeTypeNameOrOptions extends
+  DefaultSchemaCompositeTypeNameOrOptions extends
     | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+  CompositeTypeName extends DefaultSchemaCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
-> = PublicCompositeTypeNameOrOptions extends {
+> = DefaultSchemaCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  ? DatabaseWithoutInternals[DefaultSchemaCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : DefaultSchemaCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][DefaultSchemaCompositeTypeNameOrOptions]
     : never
 
 export const Constants = {
