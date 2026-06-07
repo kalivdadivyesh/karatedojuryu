@@ -58,6 +58,13 @@ serve(async (req) => {
       .eq('user_id', user.id)
       .maybeSingle();
 
+    // Get belt info
+    const { data: beltData } = await supabase
+      .from('belts')
+      .select('*')
+      .eq('name', user.belt_level)
+      .maybeSingle();
+
     return new Response(JSON.stringify({
       user: {
         id: user.id,
@@ -65,6 +72,7 @@ serve(async (req) => {
         name: user.name,
         age: user.age,
         belt_level: user.belt_level,
+        belt_info: beltData,
         role: roleData?.role || 'user',
       },
       session: signInData.session,

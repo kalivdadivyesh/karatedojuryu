@@ -58,6 +58,15 @@ serve(async (req) => {
       attempts++;
     }
 
+    // Get default belt (White)
+    const { data: defaultBelt } = await supabase
+      .from('belts')
+      .select('name')
+      .eq('rank', 1)
+      .maybeSingle();
+
+    const beltLevel = defaultBelt?.name || 'White';
+
     // Create Supabase Auth user with fake email
     const fakeEmail = `${name.toLowerCase().replace(/[^a-z0-9]/g, '')}@karate.local`;
     const { data: authData, error: authError } = await supabase.auth.admin.createUser({
@@ -77,7 +86,7 @@ serve(async (req) => {
     // Insert user profile
     const { data: user, error: userError } = await supabase
       .from('users')
-      .insert({ hex_id, name, age, password_hash: 'supabase_auth', auth_id: authUserId, belt_level: 'White' })
+      .insert({ hex_id, name, age, password_hash: 'supabase_auth', auth_id: authUserId, belt_level: beltLevel })
       .select()
       .single();
 
@@ -92,6 +101,13 @@ serve(async (req) => {
     // Create role
     await supabase.from('user_roles').insert({ user_id: user.id, role: 'user' });
 
+    // Get belt info
+    const { data: beltData } = await supabase
+      .from('belts')
+      .select('*')
+      .eq('name', beltLevel)
+      .maybeSingle();
+
     // Sign in to get session token
     const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
       email: fakeEmail,
@@ -99,7 +115,7 @@ serve(async (req) => {
     });
 
     return new Response(JSON.stringify({
-      user: { id: user.id, hex_id: user.hex_id, name: user.name, age: user.age, belt_level: user.belt_level, role: 'user' },
+      user: { id: user.id, hex_id: user.hex_id, name: user.name, age: user.age, belt_level: user.belt_level, belt_info: beltData, role: 'user' },
       session: signInData?.session || null,
     }), {
       status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
