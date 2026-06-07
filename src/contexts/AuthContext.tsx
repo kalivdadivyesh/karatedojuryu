@@ -1,6 +1,9 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Session } from "@supabase/supabase-js";
+import type { Tables } from "@/integrations/supabase/types";
+
+type Belt = Tables<"belts">;
 
 interface User {
   id: string;
@@ -8,6 +11,7 @@ interface User {
   name: string;
   age: number;
   belt_level?: string;
+  belt_info?: Belt;
   role?: string;
 }
 
